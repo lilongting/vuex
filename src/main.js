@@ -13,6 +13,7 @@ Vue.use(MintUi);
 //引入mui
 import "./lib/mui/css/mui.css"
 import "./lib/mui/css/icons-extra.css"
+import "./lib/mui/js/mui.js"
 
 var vm = new Vue({
     el: "#app",

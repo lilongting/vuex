@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mt-header fixed title="固定在顶部">
+    <mt-header fixed title="黑马14大前端">
         <router-link to="/" slot="left">
           <mt-button icon="back">返回</mt-button>
         </router-link>
@@ -9,31 +9,49 @@
       <router-view/>
 
       <nav class="mui-bar mui-bar-tab">
-			<router-link class="mui-tab-item mui-active" to="/home">
+			<a class="mui-tab-item mui-active" @click="$router.push('/home')">
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
-			</router-link>
-			<router-link class="mui-tab-item" to="/member">
+			</a>
+			<a class="mui-tab-item" @click="$router.push('/member')">
 				<span class="mui-icon mui-icon-contact"></span>
 				<span class="mui-tab-label">会员</span>
-			</router-link>
-			<router-link class="mui-tab-item" to="/cart">
-				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">9</span></span>
+			</a>
+			<a class="mui-tab-item" @click="$router.push('/cart')">
+				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">{{cartNumber}}</span></span>
 				<span class="mui-tab-label">购物车</span>
-			</router-link>
-			<router-link class="mui-tab-item" to="/search">
+			</a>
+			<a class="mui-tab-item" @click="$router.push('/search')">
 				<span class="mui-icon mui-icon-search"></span>
 				<span class="mui-tab-label">搜索</span>
-			</router-link>
+			</a>
 		</nav>
   </div>
 </template>
 
 <script>
-export default {};
+import globalEventBus from "./store/eventbus.js";
+import store from "./store/store.js";
+export default {
+  data() {
+    return {
+      cartNumber: 0
+    };
+	},
+	created(){
+		globalEventBus.$on("cartChange",cart =>{
+			this.cartNumber =store.getAllCount();
+		})
+		this.cartNumber =store.getAllCount();
+	}
+};
 </script>
 
 <style>
+/* 阻止浏览器弹出滑动告警 */
+/* *{
+	touch-action: none;
+} */
 html,
 body {
   padding: 0;
