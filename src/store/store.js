@@ -31,5 +31,38 @@ export default {
     }
     //将更新后的数组转成字符串重新存储到localstorage中去
     localStorage.setItem("cartinfo", JSON.stringify(carts));
+  },
+  getIds() {
+    var carts = this.getAllCarts();
+    var ids = carts.map(v => v.id);
+    return ids.join(",");
+  },
+  getCountById(id) {
+    var carts = this.getAllCarts();
+    var temp = carts.filter(v => v.id == id);
+    if (temp.length > 0) {
+      return temp[0].count;
+    } else {
+      return 0;
+    }
+  },
+  updateCartById(cart) {
+    var carts = this.getAllCarts();
+    var temp = carts.filter(v => v.id == cart.id);
+    if (temp.length > 0) {
+      temp[0].count = cart.count;
+    }
+    localStorage.setItem("cartinfo", JSON.stringify(carts));
+  },
+  deleteById(id) {
+    var carts = this.getAllCarts();
+    var index = -1;
+    carts.forEach((v, i) => {
+      if (v.id == id) {
+        index = i;
+      }
+    })
+    carts.splice(index, 1)
+    localStorage.setItem("cartinfo", JSON.stringify(carts));
   }
 }

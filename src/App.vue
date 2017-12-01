@@ -1,9 +1,7 @@
 <template>
   <div>
     <mt-header fixed title="黑马14大前端">
-        <router-link to="/" slot="left">
-          <mt-button icon="back">返回</mt-button>
-        </router-link>
+          <mt-button icon="back" slot="left" @click="$router.go(-1)" v-if="$route.path!='/home'">返回</mt-button>
       </mt-header>
 
       <router-view/>
@@ -37,13 +35,13 @@ export default {
     return {
       cartNumber: 0
     };
-	},
-	created(){
-		globalEventBus.$on("cartChange",cart =>{
-			this.cartNumber =store.getAllCount();
-		})
-		this.cartNumber =store.getAllCount();
-	}
+  },
+  created() {
+    globalEventBus.$on("cartChange", _ => {
+      this.cartNumber = store.getAllCount();
+    });
+    this.cartNumber = store.getAllCount();
+  }
 };
 </script>
 

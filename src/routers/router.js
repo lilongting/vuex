@@ -19,6 +19,9 @@ import PicList from "../components/pic/PicList.vue"
 //商品组件
 import GoodsList from "../components/goods/GoodsList.vue"
 import GoodsInfo from "../components/goods/GoodsInfo.vue"
+import GoodsComment from "../components/goods/GoodsComment.vue"
+import GoodsDesc from "../components/goods/GoodsDesc.vue"
+
 export default new VueRouter({
     routes: [
        {path: "/home",  component: HomeContainer},
@@ -32,6 +35,9 @@ export default new VueRouter({
        {path: "/home/picinfo/:id",  component: PicInfo},
        {path: "/home/goodslist",  component: GoodsList},
        {path: "/home/goodsinfo/:id",  component: GoodsInfo},
+       {path: "/home/goodsinfo/:id",  component: GoodsInfo},
+       {path: "/home/goodsdesc/:id",  component: GoodsDesc},
+       {path: "/home/goodscomment/:id",  component: GoodsComment},
     ]
 });
 

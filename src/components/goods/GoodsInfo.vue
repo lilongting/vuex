@@ -29,7 +29,7 @@
                   </div>
                   <div class="count">
                       <span>购买数量：</span>
-                      <number-box :min="0" :max="10" @numberupdated="getCount"></number-box>
+                      <number-box :min="0" :max="10" v-model="count"></number-box>
                   </div>
                   <div class="btns">
                       <mt-button type="primary" size="small">立即购买</mt-button>
@@ -49,9 +49,9 @@
                 </div>
             </div>
             <div class="mui-card-footer">
-                <mt-button type="primary" plain size="large">图文介绍</mt-button>
+                <mt-button type="primary" plain size="large" @click="$router.push('/home/goodsdesc/' + $route.params.id)">图文介绍</mt-button>
                 <br>
-                <mt-button type="danger" plain size="large">商品评论</mt-button>
+                <mt-button type="danger" plain size="large" @click="$router.push('/home/goodscomment/' + $route.params.id)">商品评论</mt-button>
             </div>
         </div>
   
@@ -76,7 +76,7 @@ export default {
     };
   },
   components: {
-    "number-box":NumberBox
+    "number-box": NumberBox
   },
   created() {
     this.getLunbo();
@@ -87,11 +87,11 @@ export default {
   },
   methods: {
     //当numberbox内容发生变化的时候，就会调用这个方法
-    getCount(number) {
-      // alert("数字改变了" + number);
-      //动物园里有小西几  小脑斧  小白去  大莽鞋  小福泥  小松许 大飞囊 大lai流
-      this.count = number;
-    },
+    // getCount(number) {
+    //   // alert("数字改变了" + number);
+    //   //动物园里有小西几  小脑斧  小白去  大莽鞋  小福泥  小松许 大飞囊 大lai流
+    //   this.count = number;
+    // },
     getLunbo() {
       axios({
         url: "http://vue.studyit.io/api/getthumimages/" + this.$route.params.id
@@ -123,9 +123,10 @@ export default {
     },
     addToCart() {
       this.isShowBall = true;
+      // 要将当前的购物车信息存储到 localstorage中去
       store.addToCarts({
-        id:this.$route.params.id,
-        count:this.count
+        id: this.$route.params.id,
+        count: this.count
       });
       globalEventBus.$emit("cartChange");
     }
@@ -145,7 +146,7 @@ export default {
 }
 
 .container {
-  padding-top: 5px;
+  padding-top: 40px;
   position: relative;
 }
 .mint-swipe {

@@ -24,5 +24,10 @@ export default {
 };
 </script>
 <style>
-
+.news-content img{
+    width: 100%;
+}
+.news-content table{
+    width: 100% !important;
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="number-box">
       <button class="minus-btn" @click="minus">-</button>
-      <input type="text" id="input-box" v-model="number">
+      <input type="text" id="input-box" :value="number">
       <button class="plus-btn"  @click="plus">+</button>
   </div>
 </template>
@@ -9,8 +9,11 @@
 export default {
   data() {
     return {
-      number: 0
+      number:0
     };
+  },
+  created(){
+    this.number =this.value || 1;
   },
   methods: {
     minus() {
@@ -26,10 +29,10 @@ export default {
       }
     }
   },
-  props: ["min", "max", "step"],
+  props: ["min", "max", "step","value"],
   watch: {
     number() {
-      this.$emit("numberupdated", this.number);
+      this.$emit("input", this.number);
     }
   }
 };
