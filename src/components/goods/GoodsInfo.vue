@@ -64,8 +64,6 @@ import axios from "axios";
 import dateformatter from "../../filters/dateformatter.js";
 import NumberBox from "../common/NumberBox.vue";
 
-import globalEventBus from "../../store/eventbus.js";
-import store from "../../store/store.js";
 export default {
   data() {
     return {
@@ -86,12 +84,6 @@ export default {
     dateformatter
   },
   methods: {
-    //当numberbox内容发生变化的时候，就会调用这个方法
-    // getCount(number) {
-    //   // alert("数字改变了" + number);
-    //   //动物园里有小西几  小脑斧  小白去  大莽鞋  小福泥  小松许 大飞囊 大lai流
-    //   this.count = number;
-    // },
     getLunbo() {
       axios({
         url: "http://vue.studyit.io/api/getthumimages/" + this.$route.params.id
@@ -123,12 +115,10 @@ export default {
     },
     addToCart() {
       this.isShowBall = true;
-      // 要将当前的购物车信息存储到 localstorage中去
-      store.addToCarts({
+      this.$store.commit("addToCarts", {
         id: this.$route.params.id,
         count: this.count
       });
-      globalEventBus.$emit("cartChange");
     }
   }
 };

@@ -16,7 +16,7 @@
 				<span class="mui-tab-label">会员</span>
 			</a>
 			<a class="mui-tab-item" @click="$router.push('/cart')">
-				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">{{cartNumber}}</span></span>
+				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">{{$store.getters.totalCount}}</span></span>
 				<span class="mui-tab-label">购物车</span>
 			</a>
 			<a class="mui-tab-item" @click="$router.push('/search')">
@@ -28,19 +28,14 @@
 </template>
 
 <script>
-import globalEventBus from "./store/eventbus.js";
 import store from "./store/store.js";
 export default {
   data() {
     return {
-      cartNumber: 0
-    };
+    }
   },
   created() {
-    globalEventBus.$on("cartChange", _ => {
-      this.cartNumber = store.getAllCount();
-    });
-    this.cartNumber = store.getAllCount();
+   
   }
 };
 </script>

@@ -36,14 +36,21 @@
 <script>
 import numberbox from "../common/NumberBox.vue";
 import axios from "axios";
-import store from "../../store/store.js";
-import globalEventBus from "../../store/eventbus.js";
 
 export default {
   data() {
     return {
       cartList: []
     };
+  },
+  watch:{
+    "cartList":{
+      handler(){
+        // console.log(1111);
+        this.$store.getters.updateCarts(this.cartList);
+      },
+      deep:true
+    }
   },
   components: {
     numberbox
@@ -57,21 +64,18 @@ export default {
           index = i;
         }
       });
-      // 删除localstorage中对应的数据
       this.cartList.splice(index, 1);
-      store.deleteById(id);
-      // 告诉App.vue购物车改变了
-      globalEventBus.$emit("cartChange");
     }
   },
   created() {
-    if (store.getIds()) {
+    var ids =this.$store.getters.getIds;
+    if (ids) {
       axios({
-        url: "http://vue.studyit.io/api/goods/getshopcarlist/" + store.getIds()
+        url: "http://vue.studyit.io/api/goods/getshopcarlist/" + ids
       }).then(res => {
         if (res.data.status == 0) {
           res.data.message.forEach(v => {
-            v.count = store.getCountById(v.id);
+            v.count = this.$store.getters.getCountById(v.id);
             v.checked = false;
           });
           this.cartList = res.data.message;
